@@ -214,19 +214,32 @@
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             // --- Welcome Screen Animation ---
-            const welcomeText = "Hi! I'm Pratham Pawar";
+            const welcomeLine1 = "Hi !";
+            const welcomeLine2 = "I'm Pratham Pawar";
             const welcomeElement = document.getElementById('welcome-text');
-            let i = 0;
-            welcomeText.split('').forEach(char => {
-                const span = document.createElement('span');
-                span.textContent = char;
-                span.style.opacity = '0';
-                span.style.display = 'inline-block';
-                span.style.transform = 'translateY(50px)';
-                span.style.transition = `opacity 0.5s ${i * 0.08}s, transform 0.5s ${i * 0.08}s`;
-                welcomeElement.appendChild(span);
-                i++;
-            });
+            let charIndex = 0;
+
+            const animateTextLine = (text) => {
+                text.split('').forEach(char => {
+                    const span = document.createElement('span');
+                    if(char === ' '){
+                        span.innerHTML = '&nbsp;';
+                    } else {
+                        span.textContent = char;
+                    }
+                    span.style.opacity = '0';
+                    span.style.display = 'inline-block';
+                    span.style.transform = 'translateY(50px)';
+                    span.style.transition = `opacity 0.5s ${charIndex * 0.08}s, transform 0.5s ${charIndex * 0.08}s`;
+                    welcomeElement.appendChild(span);
+                    charIndex++;
+                });
+            };
+
+            animateTextLine(welcomeLine1);
+            welcomeElement.appendChild(document.createElement('br'));
+            animateTextLine(welcomeLine2);
+
 
             setTimeout(() => {
                 Array.from(welcomeElement.children).forEach(span => {
